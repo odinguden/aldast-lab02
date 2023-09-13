@@ -7,9 +7,6 @@
  */
 package no.ntnu.idata2302.lab02;
 
-import java.util.Comparator;
-import java.util.List;
-
 /**
  * Implement the Sequence ADT from Lecture 2.2
  *
@@ -79,6 +76,16 @@ public class Sequence {
 		this.capacity = newCapacity;
 	}
 
+	private int[] cloneArray() {
+		int[] clonedArray = new int[capacity];
+		
+		for (int i = 0; i < items.length; i++) {
+			clonedArray[i] = items[i];
+		}
+
+		return clonedArray;
+	}
+
 	private void makeSpace(int index) {
 		for (int i = length; i > index; i--) {
 			items[i] = items[i - 1];
@@ -136,6 +143,28 @@ public class Sequence {
 		}
 	}
 
+	private int[] selectionSort() {
+		int[] sortedArray = this.cloneArray();
+
+		
+		int i = 0;
+		while (i < length) {
+			int minimumIndex = i;
+			for (int index = i; index < length; index++) {
+				if (sortedArray[index] < sortedArray[minimumIndex]) {
+					minimumIndex = index;
+				}
+			}
+			int tempHold = sortedArray[i];
+			sortedArray[i] = sortedArray[minimumIndex];
+			sortedArray[minimumIndex] = tempHold;
+
+			i++;
+		}
+
+		return sortedArray;
+	}
+
 	/**
 	 * Find a index where the given item can be found. Returns 0 if that item cannot
 	 * be found.
@@ -176,19 +205,9 @@ public class Sequence {
 		if (length == 0){
 			throw new IllegalStateException();
 		}
-		int i = 0;
-		int maximum = items[i];
-		int minimum = items[i];
-
-		while (i <= length - 1 ) {
-			if (items[i] > maximum) {
-				maximum = items[i];
-			}
-			if (items[i] < minimum) {
-				minimum = items[i];
-			}
-			i ++;
-		}
+		int[] sorted = selectionSort();
+		int minimum = sorted[0];
+		int maximum = sorted[length - 1];
 		return new int[]{minimum,maximum};
 	}
 
@@ -198,8 +217,19 @@ public class Sequence {
 	 * @return true if the sequence has the the same items at multiple indices
 	 */
 	public boolean hasDuplicate() {
-		// TODO: Implement
-		throw new RuntimeException("Not yet implemented.");
+		boolean containsADuplicate = false;
+		int[] sorted = selectionSort();
+		
+		int index = 1;
+
+		while (index < length && !containsADuplicate) {
+			if (sorted[index] == sorted[index - 1]) {
+				containsADuplicate = true;
+			}
+			index++;
+		}
+
+		return containsADuplicate;
 	}
 
 
