@@ -7,6 +7,9 @@
  */
 package no.ntnu.idata2302.lab02;
 
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Implement the Sequence ADT from Lecture 2.2
  *
@@ -141,8 +144,26 @@ public class Sequence {
 	 * @return an
 	 */
 	public int search(int item) {
-		// TODO: Implement
-		throw new RuntimeException("Not yet implemented.");
+		if (length <= 0) {
+			return 0;
+		}
+
+		boolean foundFlag = false;
+		int foundIndex = 0;
+
+		int index = 0;
+		while (!foundFlag && index < length) {
+			int current = items[index];
+
+			if (current == item) {
+				foundIndex = index + 1;
+				foundFlag = true;
+			}
+
+			index++;
+		}
+
+		return foundIndex;
 	}
 
 	/**
