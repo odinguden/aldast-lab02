@@ -152,8 +152,31 @@ public class Sequence {
 	 *         second the maximum
 	 */
 	public int[] extrema() {
-		// TODO: Implement
-		throw new RuntimeException("Not yet implemented.");
+		// TODO endre denne
+		int i = 1;
+		int maximum = items[i];
+		int minimum = items[i];
+
+		while (i <= length) {
+			if (items[i] > maximum) {
+				maximum = items[i];
+			}
+			if (items[i] < minimum) {
+				minimum = items[i];
+			}
+			i ++;
+		}
+
+		/* 
+		for (int x : items) {
+			if (x < minimum) {
+				minimum = x;
+			}
+			if (x > maximum) {
+				maximum = x;
+			}
+		}*/
+		return new int[]{minimum,maximum};
 	}
 
 	/**
