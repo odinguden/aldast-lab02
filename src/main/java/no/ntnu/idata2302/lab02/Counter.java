@@ -3,7 +3,7 @@ package no.ntnu.idata2302.lab02;
 public class Counter {
 
     public static void main(String args[]) {
-        var counter = Counter.decimal(5)
+        var counter = Counter.decimal(5);
         for (int i = 0; i < 50; i++) {
             System.out.println(counter.value());
             counter.increment();
@@ -50,7 +50,7 @@ public class Counter {
 
     private final DigitDisplay digits[];
 
-    private Counter(DigitDisplay[] digits) {
+    public Counter(DigitDisplay[] digits) {
         this.digits = digits;
     }
 
@@ -58,8 +58,15 @@ public class Counter {
      * Increment the counter by one
      */
     public void increment() {
-        // TODO: Implement
-        throw new RuntimeException("Not yet implemented.");
+        int currentDigit = 0;
+
+        digits[currentDigit].next();
+
+        while (digits[currentDigit].isZero() && currentDigit < (digits.length-1)) {
+            currentDigit += 1;
+            digits[currentDigit].next();
+        }
+
     }
 
     /**
@@ -80,8 +87,8 @@ public class Counter {
  */
 class DigitDisplay {
 
-    private final String alphabet;
-    private int index;
+    private final String alphabet; // Symbols the display can show
+    private int index; // the currently displayed symbol
 
     DigitDisplay(String alphabet) {
         this(alphabet, 0);
