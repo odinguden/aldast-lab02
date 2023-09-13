@@ -173,12 +173,14 @@ public class Sequence {
 	 *         second the maximum
 	 */
 	public int[] extrema() {
-		// TODO endre denne
-		int i = 1;
+		if (length == 0){
+			throw new IllegalStateException();
+		}
+		int i = 0;
 		int maximum = items[i];
 		int minimum = items[i];
 
-		while (i <= length) {
+		while (i <= length - 1 ) {
 			if (items[i] > maximum) {
 				maximum = items[i];
 			}
@@ -187,16 +189,6 @@ public class Sequence {
 			}
 			i ++;
 		}
-
-		/* 
-		for (int x : items) {
-			if (x < minimum) {
-				minimum = x;
-			}
-			if (x > maximum) {
-				maximum = x;
-			}
-		}*/
 		return new int[]{minimum,maximum};
 	}
 
